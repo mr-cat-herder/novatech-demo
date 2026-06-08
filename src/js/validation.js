@@ -72,13 +72,16 @@ export function validateField(field) {
     message = MESSAGES.minLength(rules.minLength);
   }
 
-  // Max length check
-  else if (rules.maxLength && value && value.length > rules.maxLength) {
+  // Max length check (independent of the format/min-length checks above so it
+  // is always evaluated for an otherwise-valid value)
+  if (isValid && rules.maxLength && value && value.length > rules.maxLength) {
     isValid = false;
     message = MESSAGES.maxLength(rules.maxLength);
   }
 
   // Update UI
+  field.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+
   if (isValid) {
     field.classList.remove(CLASSES.invalid);
     if (errorEl) {

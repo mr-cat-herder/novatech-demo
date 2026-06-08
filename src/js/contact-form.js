@@ -52,14 +52,20 @@ async function handleSubmit(event) {
   const form = event.target;
   const statusEl = document.querySelector(SELECTORS.status);
 
+  if (!statusEl) {
+    return;
+  }
+
   clearStatus(statusEl);
 
   // Validate all fields
   const validationResult = validateForm(form);
 
   if (!validationResult.isValid) {
-    // Focus first invalid field
-    const firstInvalidField = form.querySelector(`.${CLASSES.invalid}`);
+    // Focus first invalid field (target the input itself, not a wrapper)
+    const firstInvalidField = form.querySelector(
+      `input.${CLASSES.invalid}, textarea.${CLASSES.invalid}, select.${CLASSES.invalid}`
+    );
     if (firstInvalidField) {
       firstInvalidField.focus();
     }
@@ -71,6 +77,8 @@ async function handleSubmit(event) {
   const originalText = submitBtn.textContent;
   submitBtn.textContent = 'Sending...';
   submitBtn.disabled = true;
+  // Announce the in-progress state to assistive technologies
+  form.setAttribute('aria-busy', 'true');
 
   try {
     // Simulate API call
@@ -83,6 +91,7 @@ async function handleSubmit(event) {
   } finally {
     submitBtn.textContent = originalText;
     submitBtn.disabled = false;
+    form.removeAttribute('aria-busy');
   }
 }
 

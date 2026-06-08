@@ -9,6 +9,7 @@ const SELECTORS = {
 };
 
 const CLASSES = {
+  filterBtn: 'filter-btn',
   active: 'filter-btn--active',
   hidden: 'is-hidden',
 };
@@ -22,12 +23,12 @@ function filterProjects(category) {
 
   projects.forEach((project) => {
     const projectCategory = project.dataset.category;
+    const isVisible = category === 'all' || projectCategory === category;
 
-    if (category === 'all' || projectCategory === category) {
-      project.classList.remove(CLASSES.hidden);
-    } else {
-      project.classList.add(CLASSES.hidden);
-    }
+    project.classList.toggle(CLASSES.hidden, !isVisible);
+    // Also toggle the `hidden` attribute so filtered-out cards are removed
+    // from the tab order and accessibility tree regardless of CSS.
+    project.toggleAttribute('hidden', !isVisible);
   });
 }
 
@@ -54,7 +55,7 @@ function updateActiveButton(activeBtn) {
 function handleFilterClick(event) {
   const button = event.target;
 
-  if (!button.classList.contains('filter-btn')) {
+  if (!button.classList.contains(CLASSES.filterBtn)) {
     return;
   }
 

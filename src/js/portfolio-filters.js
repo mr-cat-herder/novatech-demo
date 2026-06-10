@@ -18,7 +18,7 @@ const CLASSES = {
  * Filter projects by category
  * @param {string} category - Category to filter by ('all' shows everything)
  */
-function filterProjects(category) {
+export function filterProjects(category) {
   const projects = document.querySelectorAll(SELECTORS.projectCard);
 
   projects.forEach((project) => {
@@ -36,7 +36,7 @@ function filterProjects(category) {
  * Update active button state
  * @param {HTMLElement} activeBtn - Button to mark as active
  */
-function updateActiveButton(activeBtn) {
+export function updateActiveButton(activeBtn) {
   const buttons = document.querySelectorAll(SELECTORS.filterBtn);
 
   buttons.forEach((btn) => {

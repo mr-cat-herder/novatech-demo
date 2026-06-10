@@ -6,7 +6,7 @@
    Header
    =================== */
 .header {
-  background: white;
+  background: var(--color-surface);
   box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
@@ -103,7 +103,7 @@
     left: 0;
     right: 0;
     flex-direction: column;
-    background: white;
+    background: var(--color-surface);
     padding: var(--spacing-4);
     gap: 0;
     box-shadow: var(--shadow-md);
@@ -322,7 +322,7 @@
   display: block;
   margin-top: var(--spacing-1);
   font-size: var(--font-size-sm);
-  color: var(--color-error-600);
+  color: var(--color-error-700);
   min-height: 1.25rem;
 }
 
